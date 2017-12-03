@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using System.Windows.Shapes;
 using GestureLibrary;
 using Microsoft.Gestures;
 using Microsoft.Gestures.Endpoint;
+using Microsoft.Win32;
 
 namespace SimpleWPFApp
 {
@@ -25,14 +27,30 @@ namespace SimpleWPFApp
     {
         public MainWindow()
         {
+
+           
+
+
+
+
+           
+
+
+
             InitializeComponent();
             this.Loaded += MainWindow_Loaded;
+            this.Unloaded += MainWindow_Unloaded;
+        }
+
+        private async void MainWindow_Unloaded(object a, RoutedEventArgs e)
+        {
+            await UnregisterGesture();
+            GesturesService?.Disconnect();
+            GesturesService?.Dispose();
         }
 
         private GesturesServiceEndpoint GesturesService;
-
-        private Gesture AcceptableGesture;
-        private Gesture OptimalGesture;
+        private Gesture CurrentGesture;
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -48,7 +66,7 @@ namespace SimpleWPFApp
             }
         }
 
-        private Gesture CurrentGesture;
+ 
 
 
         private async Task RegisterGesture()
@@ -57,6 +75,7 @@ namespace SimpleWPFApp
 
             if (GesturesCombo.SelectedItem is Gesture gesture)
             {
+                CurrentGesture = gesture;
                 this.LogListBox.Items.Clear();
                 gesture.AddTriggerEventToSegments(Pose_Triggered);
                 gesture.Triggered += CurrentGesture_Triggered;
@@ -71,6 +90,7 @@ namespace SimpleWPFApp
                 CurrentGesture.RemovTriggerEventFromSegments(Pose_Triggered);
                 CurrentGesture.Triggered += CurrentGesture_Triggered;
                 await GesturesService.UnregisterGesture(CurrentGesture);
+                CurrentGesture = null;
             }
         }
 
@@ -109,18 +129,6 @@ namespace SimpleWPFApp
         }
 
 
-        private Gesture IndiceSopraPollice_Rotazione90Gradi()
-        {
-            var hold = new HandPose("Hold", new FingerPose(new[] { Finger.Thumb, Finger.Index }, FingerFlexion.Open, PoseDirection.Forward),
-                new FingertipDistanceRelation(Finger.Index, RelativeDistance.NotTouching, Finger.Thumb),
-                new FingertipPlacementRelation(Finger.Index, RelativePlacement.Above, Finger.Thumb));
-            // ... define the second pose, ...
-            var rotate = new HandPose("Rotate", new FingerPose(new[] { Finger.Thumb, Finger.Index }, FingerFlexion.Open, PoseDirection.Forward),
-                new FingertipDistanceRelation(Finger.Index, RelativeDistance.NotTouching, Finger.Thumb),
-                new FingertipPlacementRelation(Finger.Index, RelativePlacement.Right, Finger.Thumb));
-            return new Gesture("IndiceSopraPollice_Rotazione90Gradi", hold, rotate);
-        }
-
         private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
             await RegisterGesture();
@@ -134,6 +142,25 @@ namespace SimpleWPFApp
         private void ClearListButton_Click(object sender, RoutedEventArgs e)
         {
             this.LogListBox.Items.Clear();
+        }
+
+        private async void SaveXamlButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentGesture != null)
+            {
+                var dlg = new SaveFileDialog();
+                if (dlg.ShowDialog(this) == true)
+                {
+                    var gestureXaml = CurrentGesture.ToXaml();
+                    
+                    using (StreamWriter writer = File.CreateText(dlg.FileName))
+                    {
+                        await writer.WriteAsync(gestureXaml);
+                    }
+                    
+                    MessageBox.Show("Salvataggio eseguito con successo!!");
+                }
+            }
         }
     }
 }

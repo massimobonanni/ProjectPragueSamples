@@ -24,6 +24,7 @@
             <Button x:Name="StartButton" Width="75" Margin="0,0,10,0" Click="StartButton_Click">Start</Button>
             <Button x:Name="StopButton" Width="75" Margin="0,0,10,0" Height="26" VerticalAlignment="Top" Click="StopButton_Click">Stop</Button>
             <Button x:Name="ClearListButton" Width="75" Margin="0,0,10,0" Click="ClearListButton_Click">Clear</Button>
+            <Button x:Name="SaveXamlButton" Width="75" Click="SaveXamlButton_Click" >XAML</Button>
         </StackPanel>
         <ListBox x:Name="LogListBox" Grid.Row="1" Margin="5" Grid.ColumnSpan="3" Grid.Column="0"/>
     </Grid>

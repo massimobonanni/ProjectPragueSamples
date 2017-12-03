@@ -13,6 +13,7 @@ namespace GestureLibrary
             yield return SlingShot();
             yield return OpenCloseHand();
             yield return MakePeace();
+            yield return RotateRight();
         }
 
         private static string GetGestureName([CallerMemberName] string propertyName = null)
@@ -42,6 +43,14 @@ namespace GestureLibrary
                 closedFist, openHand);
 
             return gesture;
+        }
+
+        public static Gesture RotateRight()
+        {
+            var rotateSet = HandPoseHelper.RotateSet;
+            var rotateGo = HandPoseHelper.RotateGo;
+
+            return new Gesture(GetGestureName(), rotateSet, rotateGo);
         }
 
         public static Gesture MakePeace()
