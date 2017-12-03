@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2009
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleWPFApp", "SimpleWPFApp\SimpleWPFApp.csproj", "{C35D6289-9CE5-4076-824C-EF460A9B88BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestureLibrary", "GestureLibrary\GestureLibrary.csproj", "{9513B8C6-84E9-4237-A9E6-0E820D9F8528}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C35D6289-9CE5-4076-824C-EF460A9B88BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C35D6289-9CE5-4076-824C-EF460A9B88BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C35D6289-9CE5-4076-824C-EF460A9B88BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C35D6289-9CE5-4076-824C-EF460A9B88BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9513B8C6-84E9-4237-A9E6-0E820D9F8528}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9513B8C6-84E9-4237-A9E6-0E820D9F8528}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9513B8C6-84E9-4237-A9E6-0E820D9F8528}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9513B8C6-84E9-4237-A9E6-0E820D9F8528}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {43F6C11B-9BD0-4362-BAC2-3CFC61EBE418}
+	EndGlobalSection
+EndGlobal
