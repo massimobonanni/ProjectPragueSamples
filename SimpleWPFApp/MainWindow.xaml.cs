@@ -27,16 +27,6 @@ namespace SimpleWPFApp
     {
         public MainWindow()
         {
-
-           
-
-
-
-
-           
-
-
-
             InitializeComponent();
             this.Loaded += MainWindow_Loaded;
             this.Unloaded += MainWindow_Unloaded;
@@ -57,6 +47,7 @@ namespace SimpleWPFApp
             GesturesService = GesturesServiceEndpointFactory.Create();
             GesturesService.StatusChanged += GesturesService_StatusChanged;
             GesturesService.WarningLog += GesturesService_WarningLog;
+            GesturesService.ConnectionClosed += GesturesService_ConnectionClosed;
 
             GesturesCombo.ItemsSource = GestureHelper.Gestures().OrderBy(g => g.Name);
 
@@ -64,10 +55,11 @@ namespace SimpleWPFApp
             {
                 MessageBox.Show("Errore durante la connessione al Gesture Service!");
             }
+            if (GesturesService.ActiveSensorName == null)
+            {
+                MessageBox.Show("Nessun device connesso!");
+            }
         }
-
- 
-
 
         private async Task RegisterGesture()
         {
@@ -110,6 +102,11 @@ namespace SimpleWPFApp
         private void CurrentGesture_Triggered(object sender, GestureSegmentTriggeredEventArgs e)
         {
             WriteLogMessage($"[GESTURE] - {e.GestureSegment} - {e.NestingPath}", Colors.Black);
+        }
+
+        private void GesturesService_ConnectionClosed(object sender, ConnectionClosedEventArgs e)
+        {
+            WriteLogMessage($"ConnectionClosed", Colors.Red);
         }
 
         private void GesturesService_WarningLog(object sender, WarningEventArgs exception)
