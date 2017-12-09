@@ -21,7 +21,7 @@ namespace GestureLibrary
             }
         }
 
-        public static void RemovTriggerEventFromSegments(this Gesture gesture,
+        public static void RemoveTriggerEventFromSegments(this Gesture gesture,
             EventHandler<GestureSegmentTriggeredEventArgs> trigger)
         {
             if (gesture == null)

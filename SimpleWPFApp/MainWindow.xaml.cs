@@ -55,10 +55,6 @@ namespace SimpleWPFApp
             {
                 MessageBox.Show("Errore durante la connessione al Gesture Service!");
             }
-            if (GesturesService.ActiveSensorName == null)
-            {
-                MessageBox.Show("Nessun device connesso!");
-            }
         }
 
         private async Task RegisterGesture()
@@ -79,7 +75,7 @@ namespace SimpleWPFApp
         {
             if (CurrentGesture != null)
             {
-                CurrentGesture.RemovTriggerEventFromSegments(Pose_Triggered);
+                CurrentGesture.RemoveTriggerEventFromSegments(Pose_Triggered);
                 CurrentGesture.Triggered += CurrentGesture_Triggered;
                 await GesturesService.UnregisterGesture(CurrentGesture);
                 CurrentGesture = null;
@@ -149,12 +145,12 @@ namespace SimpleWPFApp
                 if (dlg.ShowDialog(this) == true)
                 {
                     var gestureXaml = CurrentGesture.ToXaml();
-                    
+
                     using (StreamWriter writer = File.CreateText(dlg.FileName))
                     {
                         await writer.WriteAsync(gestureXaml);
                     }
-                    
+
                     MessageBox.Show("Salvataggio eseguito con successo!!");
                 }
             }
